@@ -3,6 +3,8 @@ package pl.coderslab.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.dao.BookDao;
+import pl.coderslab.model.Book;
 import pl.coderslab.model.Publisher;
 import pl.coderslab.dao.PublisherDao;
 
@@ -11,9 +13,11 @@ import java.util.List;
 @Controller
 public class PublisherController {
     private final PublisherDao publisherDao;
+    private final BookDao bookDao;
 
-    public PublisherController(PublisherDao publisherDao) {
+    public PublisherController(PublisherDao publisherDao, BookDao bookDao) {
         this.publisherDao = publisherDao;
+        this.bookDao = bookDao;
     }
     @RequestMapping( value = "/publisher/add")
     @ResponseBody
@@ -43,6 +47,13 @@ public class PublisherController {
     @ResponseBody
     public String deletePublisher(@PathVariable long id){
         Publisher publisher = publisherDao.findById(id);
+        List<Book> books = bookDao.showAllBooks();
+        for (Book b:books) {
+            if (b.getPublisher()!=null && b.getPublisher().getId() == publisher.getId() ){
+                b.setPublisher(null);
+                bookDao.update(b);
+            }
+        }
         publisherDao.delete(publisher);
         return "deleted";
     }

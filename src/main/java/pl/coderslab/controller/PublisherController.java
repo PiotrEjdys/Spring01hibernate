@@ -1,12 +1,10 @@
-package pl.coderslab;
+package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.app.Author;
-import pl.coderslab.app.Book;
-import pl.coderslab.app.Publisher;
-import pl.coderslab.app.PublisherDao;
+import pl.coderslab.model.Publisher;
+import pl.coderslab.dao.PublisherDao;
 
 import java.util.List;
 

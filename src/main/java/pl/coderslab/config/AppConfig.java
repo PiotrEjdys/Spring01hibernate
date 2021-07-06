@@ -1,4 +1,4 @@
-package pl.coderslab.app;
+package pl.coderslab.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,8 +9,10 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import pl.coderslab.AuthorConverter;
-import pl.coderslab.PublisherConverter;
+import pl.coderslab.converter.AuthorConverter;
+import pl.coderslab.converter.PublisherConverter;
+import pl.coderslab.dao.AuthorDao;
+import pl.coderslab.dao.PublisherDao;
 
 import javax.persistence.EntityManagerFactory;
 

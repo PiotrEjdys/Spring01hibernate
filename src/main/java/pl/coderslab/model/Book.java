@@ -1,4 +1,4 @@
-package pl.coderslab.app;
+package pl.coderslab.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;

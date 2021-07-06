@@ -1,4 +1,4 @@
-package pl.coderslab.app;
+package pl.coderslab.model;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 

@@ -1,12 +1,11 @@
-package pl.coderslab;
+package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.app.Person;
-import pl.coderslab.app.PersonDao;
-import pl.coderslab.app.PersonDetails;
-import pl.coderslab.app.PersonDetailsDao;
+import pl.coderslab.model.Person;
+import pl.coderslab.dao.PersonDao;
+import pl.coderslab.model.PersonDetails;
+import pl.coderslab.dao.PersonDetailsDao;
 
 @Controller
 public class PersonController {

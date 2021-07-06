@@ -1,10 +1,8 @@
-package pl.coderslab;
+package pl.coderslab.converter;
 
 import org.springframework.core.convert.converter.Converter;
-import pl.coderslab.app.Author;
-import pl.coderslab.app.AuthorDao;
-import pl.coderslab.app.Publisher;
-import pl.coderslab.app.PublisherDao;
+import pl.coderslab.model.Author;
+import pl.coderslab.dao.AuthorDao;
 
 public class AuthorConverter implements Converter<String,Author> {
     private AuthorDao authorDao;

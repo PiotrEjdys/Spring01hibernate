@@ -1,6 +1,7 @@
-package pl.coderslab.app;
+package pl.coderslab.dao;
 
 import org.springframework.stereotype.Repository;
+import pl.coderslab.model.Person;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -8,23 +9,24 @@ import javax.transaction.Transactional;
 
 @Repository
 @Transactional
-public class PersonDetailsDao {
+public class PersonDao {
     @PersistenceContext
     EntityManager entityManager;
-    public void savePersonDetails(PersonDetails person){
+    public void savePerson(Person person){
         entityManager.persist(person);
     }
-    public PersonDetails findById(long id){
-        return entityManager.find(PersonDetails.class,id);
+    public Person findById(long id){
+        return entityManager.find(Person.class,id);
     }
-    public void update(PersonDetails person){
+    public void update(Person person){
         entityManager.merge(person);
     }
-    public void delete(PersonDetails person){
+    public void delete(Person person){
         entityManager.
                 remove(entityManager.contains(person)
                         ? person:entityManager.merge(person));
 
     }
+
 
 }

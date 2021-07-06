@@ -19,6 +19,7 @@
     <p> description<form:input path="description" /></p>
     <p> rating<form:input path="rating" /></p>
     <p>publisher:<form:select path="publisher" itemLabel="name" itemValue="id" items="${publishers}" multiple="false"/></p>
+    <p>Author:<form:select path="authors" itemLabel="firstName" itemValue="id" items="${authors}" multiple="false"/></p>
     <p><input type="submit" value="Save"></p>
 </form:form>
 

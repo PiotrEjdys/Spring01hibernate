@@ -15,7 +15,7 @@ public class Book {
     private int rating;
     @ManyToOne
     private Publisher publisher;
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany(cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     @JoinTable(name = "authors_books")
     private List<Author> authors = new ArrayList<>();
 

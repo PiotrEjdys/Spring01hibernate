@@ -1,10 +1,13 @@
 package pl.coderslab.controller;
 
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import pl.coderslab.dao.BookDao;
 import pl.coderslab.model.Author;
 import pl.coderslab.dao.AuthorDao;
+import pl.coderslab.model.Book;
 
 import java.util.List;
 
@@ -12,9 +15,11 @@ import java.util.List;
 @Controller
 public class AuthorController {
     private final AuthorDao authorDao;
+    private final BookDao bookDao;
 
-    public AuthorController(AuthorDao authorDao) {
+    public AuthorController(AuthorDao authorDao,BookDao bookDao) {
         this.authorDao = authorDao;
+        this.bookDao = bookDao;
     }
     @RequestMapping("/author/add")
     @ResponseBody
@@ -33,7 +38,7 @@ public class AuthorController {
     }
     @RequestMapping("/author/update/{id}/{firstName}/{lastName}")
     @ResponseBody
-    public String updateBook(@PathVariable long id
+    public String updateAuthor(@PathVariable long id
             ,@PathVariable String firstName, @PathVariable String lastName){
         Author author = authorDao.findById(id);
         author.setFirstName(firstName);
@@ -43,8 +48,22 @@ public class AuthorController {
     }
     @RequestMapping("/author/delete/{id}")
     @ResponseBody
-    public String deleteBook(@PathVariable long id){
+    public String deleteAuthor(@PathVariable long id){
         Author author = authorDao.findById(id);
+//        List<Book> books = bookDao.showAllBooks();
+//
+//        for (Book b:books) {
+//            Hibernate.initialize(b.getAuthors());
+//            List<Author> authors = b.getAuthors();
+//            for (Author a:authors) {
+//                if (a.getId() == author.getId()){
+//
+//                    authors.remove(a);
+//                   b.setAuthors(authors);
+//
+//                }
+//            }
+//        }
         authorDao.delete(author);
         return "deleted";
     }
@@ -55,13 +74,13 @@ public class AuthorController {
         return "/author.jsp";
     }
     @GetMapping("/authorform")
-    public String getBookForm(@ModelAttribute("author") Author author){
+    public String getAuthorForm(@ModelAttribute("author") Author author){
         return "/authorform.jsp";
     }
 
 
     @PostMapping("/authorform")
-    public String postBookForm(Author author){
+    public String postAuthorForm(Author author){
         authorDao.saveAuthor(author);
         return "redirect:/author/all";
     }

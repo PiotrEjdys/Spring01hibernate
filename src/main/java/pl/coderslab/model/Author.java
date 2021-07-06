@@ -12,7 +12,7 @@ public class Author {
     private  long id;
     private  String firstName;
     private  String lastName;
-    @ManyToMany(mappedBy = "authors")
+    @ManyToMany(mappedBy = "authors",cascade = CascadeType.REMOVE)
 
     private List<Book> books = new ArrayList<>();
 
@@ -47,6 +47,8 @@ public class Author {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+
 
     @Override
     public String toString() {

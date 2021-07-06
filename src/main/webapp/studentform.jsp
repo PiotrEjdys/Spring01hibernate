@@ -26,6 +26,7 @@
     <p>Hobbies <form:checkboxes path="hobbies" items="${hobbies}"/></p>
     <p> <input type="submit" value="Save"></p>
 <%--    Mailinglist false: <form:checkbox value="false" path="mailingList" />--%>
+    <p>hej</p>
 </form:form>
 
 

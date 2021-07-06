@@ -13,6 +13,7 @@
 <body>
 <a href="/book/delete/${id}">delete accepted</a><br>
 <a href="/book/all">delete cancel</a><br>
-<a href="/bookform/edit/${id}">edit</a>
+<a href="/bookform/edit/${id}">edit</a><br>
+<a href="/bookform">add</a>
 </body>
 </html>

@@ -15,10 +15,8 @@
 
 <ul>
 <c:forEach items="${books}" var="book">
-    <li> ${book}<a href="/book/choose/${book.id}">Edit or delete</a> </li>
+    <li> ${book} <a href="/book/choose/${book.id}">Edit,delete or Add</a> </li>
 </c:forEach>
-
 </ul>
-
 </body>
 </html>

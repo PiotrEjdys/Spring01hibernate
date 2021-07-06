@@ -101,4 +101,11 @@ public class BookController {
         return "/books.jsp";
 
     }
+    @RequestMapping("/book/choose/{id}")
+    public String choose(@PathVariable long id,Model model){
+        model.addAttribute("id",id);
+        return "/choose.jsp";
+    }
+
+
 }

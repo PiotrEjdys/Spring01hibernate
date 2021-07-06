@@ -34,6 +34,17 @@ public class BookFormController {
         List<Publisher> publishers = publisherDao.showAllPub();
         return publishers;
     }
+    @RequestMapping("bookform/edit/{id}")
+    public String editBookForm(@PathVariable long id,Model model){
+        Book book =bookDao.findById(id);
+        model.addAttribute("book",book);
+        return "/bookformedit.jsp";
+    }
+    @PostMapping("bookform/edit/{id}")
+    public String editPostBookForm(@PathVariable long id,Book book){
+        bookDao.update(book);
+        return "redirect:/book/all";
+    }
 
 
 }

@@ -9,6 +9,7 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import pl.coderslab.AuthorConverter;
 import pl.coderslab.PublisherConverter;
 
 import javax.persistence.EntityManagerFactory;
@@ -36,6 +37,7 @@ public class AppConfig implements WebMvcConfigurer {
     public void addFormatters(FormatterRegistry registry) {
 //        registry.addConverter(getSkillConverter());
         registry.addConverter(getPublisherConverter());
+        registry.addConverter(getAuthorConverter());
     }
     @Bean
     public PublisherConverter getPublisherConverter() {
@@ -46,5 +48,14 @@ public class AppConfig implements WebMvcConfigurer {
     public PublisherDao getPublisherDao() {
         return new PublisherDao();
     }
+    @Bean
+    public AuthorConverter getAuthorConverter() {
+        return new AuthorConverter(getAuthorDao());
+    }
+    @Bean
+    public AuthorDao getAuthorDao() {
+        return new AuthorDao();
+    }
+
 
 }

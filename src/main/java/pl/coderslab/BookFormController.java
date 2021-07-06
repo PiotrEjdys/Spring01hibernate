@@ -3,10 +3,7 @@ package pl.coderslab;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import pl.coderslab.app.Book;
-import pl.coderslab.app.BookDao;
-import pl.coderslab.app.Publisher;
-import pl.coderslab.app.PublisherDao;
+import pl.coderslab.app.*;
 
 import java.util.List;
 
@@ -14,10 +11,12 @@ import java.util.List;
 public class BookFormController {
     private BookDao bookDao;
     private PublisherDao publisherDao;
+    private AuthorDao authorDao;
 
-    public BookFormController(BookDao bookDao, PublisherDao publisherDao) {
+    public BookFormController(BookDao bookDao, PublisherDao publisherDao,AuthorDao authorDao) {
         this.bookDao = bookDao;
         this.publisherDao = publisherDao;
+        this.authorDao = authorDao;
     }
 
     @GetMapping("/bookform")
@@ -34,6 +33,11 @@ public class BookFormController {
         List<Publisher> publishers = publisherDao.showAllPub();
         return publishers;
     }
+    @ModelAttribute("authors")
+    public List<Author> showAut(){
+        List<Author> authors = authorDao.showAllAut();
+        return authors;
+    }
     @RequestMapping("bookform/edit/{id}")
     public String editBookForm(@PathVariable long id,Model model){
         Book book =bookDao.findById(id);
@@ -45,6 +49,7 @@ public class BookFormController {
         bookDao.update(book);
         return "redirect:/book/all";
     }
+
 
 
 }

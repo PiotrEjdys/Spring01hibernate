@@ -2,9 +2,8 @@ package pl.coderslab;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import pl.coderslab.app.Author;
 import pl.coderslab.app.Book;
 import pl.coderslab.app.Publisher;
 import pl.coderslab.app.PublisherDao;
@@ -44,7 +43,7 @@ public class PublisherController {
     }
     @RequestMapping("/publisher/delete/{id}")
     @ResponseBody
-    public String deleteBook(@PathVariable long id){
+    public String deletePublisher(@PathVariable long id){
         Publisher publisher = publisherDao.findById(id);
         publisherDao.delete(publisher);
         return "deleted";
@@ -54,6 +53,33 @@ public class PublisherController {
         List<Publisher> all = publisherDao.showAllPub();
         model.addAttribute("publishers",all);
         return "/publisher.jsp";
+    }
+    @RequestMapping("/publisher/choose/{id}")
+    public String choosePublisher(@PathVariable long id,Model model){
+        model.addAttribute("id",id);
+        return "/choosepublisher.jsp";
+    }
+    @GetMapping("/publisherform")
+    public String getPublisherForm(@ModelAttribute("publisher") Publisher publisher){
+        return "/publisherform.jsp";
+    }
+
+
+    @PostMapping("/publisherform")
+    public String postPublisherForm(Publisher publisher){
+        publisherDao.savePublisher(publisher);
+        return "redirect:/publisher/all";
+    }
+    @RequestMapping("/publisherform/edit/{id}")
+    public String editPublisherForm(@PathVariable long id,Model model){
+        Publisher publisher = publisherDao.findById(id);
+        model.addAttribute("publisher",publisher);
+        return "/publishereditform.jsp";
+    }
+    @PostMapping("publisherform/edit/{id}")
+    public String editPostAuthorForm(@PathVariable long id,Publisher publisher){
+        publisherDao.update(publisher);
+        return "redirect:/publisher/all";
     }
 
 

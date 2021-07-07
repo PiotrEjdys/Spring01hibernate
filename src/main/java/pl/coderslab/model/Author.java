@@ -12,7 +12,7 @@ public class Author {
     private  long id;
     private  String firstName;
     private  String lastName;
-    @ManyToMany(mappedBy = "authors",cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "authors",fetch = FetchType.EAGER)
 
     private List<Book> books = new ArrayList<>();
 

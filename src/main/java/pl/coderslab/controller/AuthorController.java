@@ -2,6 +2,7 @@ package pl.coderslab.controller;
 
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.BookDao;
@@ -9,6 +10,7 @@ import pl.coderslab.model.Author;
 import pl.coderslab.dao.AuthorDao;
 import pl.coderslab.model.Book;
 
+import java.util.Iterator;
 import java.util.List;
 
 
@@ -48,22 +50,26 @@ public class AuthorController {
     }
     @RequestMapping("/author/delete/{id}")
     @ResponseBody
+    @Transactional
     public String deleteAuthor(@PathVariable long id){
         Author author = authorDao.findById(id);
-//        List<Book> books = bookDao.showAllBooks();
-//
-//        for (Book b:books) {
+
+        List<Book> books = author.getBooks();
+
+        for (Book b:books) {
 //            Hibernate.initialize(b.getAuthors());
-//            List<Author> authors = b.getAuthors();
-//            for (Author a:authors) {
-//                if (a.getId() == author.getId()){
-//
+            List<Author> authors = b.getAuthors();
+            Iterator<Author> iterator = authors.iterator();
+            while (iterator.hasNext()) {
+                Author a = iterator.next();
+                if (a.getId() == author.getId()) {
+                    iterator.remove();
 //                    authors.remove(a);
 //                   b.setAuthors(authors);
-//
-//                }
-//            }
-//        }
+                }
+            }
+
+        }
         authorDao.delete(author);
         return "deleted";
     }

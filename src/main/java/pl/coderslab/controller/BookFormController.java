@@ -3,6 +3,7 @@ package pl.coderslab.controller;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.AuthorDao;
 import pl.coderslab.dao.BookDao;
@@ -11,6 +12,7 @@ import pl.coderslab.model.Author;
 import pl.coderslab.model.Book;
 import pl.coderslab.model.Publisher;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -30,7 +32,10 @@ public class BookFormController {
         return "/bookform.jsp";
     }
     @PostMapping("/bookform")
-    public String postBookForm(Book book){
+    public String postBookForm(@Valid Book book, BindingResult result ){
+        if (result.hasErrors()){
+            return "/bookform.jsp";
+        }
         bookDao.saveBook(book);
         return "redirect:/book/all";
     }
@@ -51,7 +56,10 @@ public class BookFormController {
         return "/bookformedit.jsp";
     }
     @PostMapping("bookform/edit/{id}")
-    public String editPostBookForm(@PathVariable long id,Book book){
+    public String editPostBookForm(@PathVariable long id,@Valid Book book, BindingResult result ){
+        if (result.hasErrors()){
+            return "/bookformedit.jsp";
+        }
         bookDao.update(book);
         return "redirect:/book/all";
     }

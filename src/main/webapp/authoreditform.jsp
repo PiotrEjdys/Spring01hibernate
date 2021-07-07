@@ -15,8 +15,8 @@
 <body>
 <form:form method="post"
            modelAttribute="author">
-    <p> title<form:input path="firstName" /></p>
-    <p> description<form:input path="lastName" /></p>
+    <p> firstName<form:input path="firstName" /> <form:errors path ="firstName"/></p>
+    <p> lastName<form:input path="lastName" /> <form:errors path ="lastName"/></p>
     <p><input type="submit" value="Save"></p>
 </form:form>
 

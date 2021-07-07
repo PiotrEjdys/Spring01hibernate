@@ -2,12 +2,14 @@ package pl.coderslab.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.BookDao;
 import pl.coderslab.model.Book;
 import pl.coderslab.model.Publisher;
 import pl.coderslab.dao.PublisherDao;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -75,7 +77,11 @@ public class PublisherController {
 
 
     @PostMapping("/publisherform")
-    public String postPublisherForm(Publisher publisher){
+    public String postPublisherForm(@Valid Publisher publisher, BindingResult result){
+        if (result.hasErrors()){
+            return "/publisherform.jsp";
+
+        }
         publisherDao.savePublisher(publisher);
         return "redirect:/publisher/all";
     }
@@ -86,7 +92,10 @@ public class PublisherController {
         return "/publishereditform.jsp";
     }
     @PostMapping("publisherform/edit/{id}")
-    public String editPostAuthorForm(@PathVariable long id,Publisher publisher){
+    public String editPostAuthorForm(@PathVariable long id,@Valid Publisher publisher,BindingResult result){
+        if (result.hasErrors()){
+            return "/publishereditform.jsp";
+        }
         publisherDao.update(publisher);
         return "redirect:/publisher/all";
     }

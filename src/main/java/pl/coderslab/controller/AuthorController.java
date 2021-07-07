@@ -4,12 +4,14 @@ import org.hibernate.Hibernate;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dao.BookDao;
 import pl.coderslab.model.Author;
 import pl.coderslab.dao.AuthorDao;
 import pl.coderslab.model.Book;
 
+import javax.validation.Valid;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,7 +88,10 @@ public class AuthorController {
 
 
     @PostMapping("/authorform")
-    public String postAuthorForm(Author author){
+    public String postAuthorForm(@Valid Author author, BindingResult result){
+        if (result.hasErrors()){
+            return "/authorform.jsp";
+        }
         authorDao.saveAuthor(author);
         return "redirect:/author/all";
     }
@@ -94,10 +99,13 @@ public class AuthorController {
     public String editAuthorForm(@PathVariable long id,Model model){
         Author author = authorDao.findById(id);
         model.addAttribute("author",author);
-        return "/authoreditform.jsp";
+        return "/authorform.jsp";
     }
     @PostMapping("authorform/edit/{id}")
-    public String editPostAuthorForm(@PathVariable long id,Author author){
+    public String editPostAuthorForm(@PathVariable long id,@Valid Author author, BindingResult result){
+        if (result.hasErrors()){
+            return "/authorform.jsp";
+        }
         authorDao.update(author);
         return "redirect:/author/all";
     }
